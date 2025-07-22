@@ -9,11 +9,13 @@ namespace LibraryProject
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<LibraryDbContext>();
+            builder.Services.AddAuthorization();
+            builder.Services.AddControllersWithViews();
             // Add services to the container
-
             var app = builder.Build();
 
-            builder.Services.AddDbContext<LibraryDbContext>();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

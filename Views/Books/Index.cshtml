@@ -1,0 +1,35 @@
+@model List<Book>
+<h2>List Book</h2>
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead class="table-header">
+            <tr>
+                <th></th>
+                <th>Yazar</th>
+                <th>Stok</th>
+                <th>Tür</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Author</td>
+                    <td>@book.Stock</td>
+                 
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-footer">
+            <tr>
+                <td colspan="4" class="text-center">Toplam @Model.Count() kitap</td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <p>Henüz kitap eklenmemiş.</p>
+}

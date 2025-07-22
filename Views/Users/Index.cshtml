@@ -1,0 +1,55 @@
+﻿@model List<LibraryProject.Models.User>
+    
+
+<h2>Kullanıcı Listesi</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped">
+        <thead class="table-header">
+            <tr>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Email</th>
+                <th>Telefon</th>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+            @foreach (var kullanici in Model)
+            {
+                <tr >
+                    <td>@kullanici.Name</td>
+                    <td>@kullanici.Surname</td>
+                    <td>@kullanici.Email</td>
+                    <td>@kullanici.Phone</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot class="table-footer">
+            <tr>
+                <td colspan="4" class="text-center">Toplam @Model.Count() kullanıcı</td>
+            </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <p>Henüz kullanıcı eklenmemiş.</p>
+}
+
+<!-- /.container-fluid -->
+<script src="~/template/vendor/jquery/jquery.min.js"></script>
+<script src="~/template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="~/template/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="~/template/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="~/template/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="~/template/js/demo/datatables-demo.js"></script>
