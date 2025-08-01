@@ -18,6 +18,7 @@ namespace LibraryProject.Controllers
         public IActionResult Index()
         {
             var books = _context.Books.ToList();
+            var categories = _context.Categories.ToList();
             return View(books);
         }
 

@@ -5,10 +5,13 @@
     <table class="table table-striped">
         <thead class="table-header">
             <tr>
-                <th></th>
-                <th>Yazar</th>
-                <th>Stok</th>
-                <th>Tür</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Stock</th>
+                <th>Genre</th>
+                <th>Category.Name</th>
+                <th>IsAvaible</th>
+                
             </tr>
         </thead>
         <tbody class="table-body">
@@ -18,6 +21,9 @@
                     <td>@book.Title</td>
                     <td>@book.Author</td>
                     <td>@book.Stock</td>
+                    <td>@book.Genre</td>
+                    <td>@book.Categories.Name</td>
+                    <td>@(book.IsAvailable ? "Available" : "Not Available")</td>
                  
                 </tr>
             }

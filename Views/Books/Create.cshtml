@@ -1,23 +1,99 @@
 <form class=" text-primary " action="Create" method="post">
     <div class="form-group   mb-4">
-        <label for="Title">Title</label>
-        <input type="text" class="form-control" id="Title" name="Title" required>
+        <label for="Title" >Title</label>
+        <input type="text" class="form-control" id="Title" name="Title" required placeholder="Enter book title">
     </div>
 
     <div class="form-group">
         <label for="Author">Author</label>
-        <input type="text" class="form-control"  id="Author" name="Author" required>
+        <input type="text" class="form-control"  id="Author" name="Author" placeholder="Enter Author" required>
     </div>
 
     <div class="form-group">
         <label for="Stock">Stock</label>
-        <input type="text" class="form-control" id="Stock" name="Stock" required>
+        <input type="text" class="form-control" id="Stock" name="Stock" placeholder="Enter Stock count" required>
     </div>
 
     <div class="form-group">
         <label for="Genre">Genre</label>
-        <input type="text" class="form-control" id="Genre" name="Genre" required>
+        <input type="text" class="form-control" id="Genre" name="Genre" placeholder="Enter Book Genre" required>
     </div>
+   <div class="form-group">
+        <label for="CategoryId">CategoryId</label>
+        <input type="text" class="form-control" id="CategoryId" name="CategoryId" placeholder="Enter CategoryId" required>
+    </div>
+    <div class="form-group">
+        <label for="IsAvailable">Is Available</label>
+        <select class="form-control" id="IsAvailable" name="IsAvailable">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select></div>
+        <div class="form-group">
+        <select class="custom-select" id="TopCategory" >
+            <option value="">Choose TopCategory</option>        
+        </select></div>
 
+
+        <div class="form-group">
+        
+        <select class=" custom-select" id="SubCategory" name="Category">
+            <option value="">Chose SubCategory</option>   
+        </select></div>
+         <br>
+        
     <button type="submit" class="btn btn-success  ">Create Book</button>
 </form>
+
+    <script src="~/template/vendor/jquery/jquery.min.js"></script> 
+  
+<script>
+    $(document).ready(function () {
+    $.ajax({
+        url: '/Categories/TopCategory',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log("Response:", response);
+            var topCategoryDropdown = $('#TopCategory');
+            topCategoryDropdown.empty();
+            topCategoryDropdown.append('<option value="0">Choose TopCategory</option>');
+            $.each(response.data, function (index, category) {
+                console.log("Appending:", category.id, category.name);
+                topCategoryDropdown.append('<option value="' + category.id + '">' + category.name + '</option>');
+            });
+        },
+        error: function (xhr, status, error) {
+            console.log('Error fetching top categories:', error);
+        }
+    });
+});
+
+$(document).ready(function () {
+    $('#TopCategory').change(function () {
+        var selectedId = $(this).val();
+        console.log("Selected TopCategory ID:", selectedId);
+        if (selectedId) {
+            $.ajax({
+                url: '/Categories/SubCategory/' + selectedId,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    console.log("Subcategories Response:", response);
+                    var subCategoryDropdown = $('#SubCategory');
+                    subCategoryDropdown.empty();
+                    subCategoryDropdown.append('<option value="">Choose SubCategory</option>');
+                    $.each(response.data, function (index, category) {
+                        console.log("Appending Subcategory:", category.id, category.name);
+                        subCategoryDropdown.append('<option value="' + category.id + '">' + category.name + '</option>');
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error fetching subcategories:', error);
+                }
+            });
+        } else {
+            $('#SubCategory').empty().append('<option value="">Choose SubCategory</option>');
+        }
+    });
+});
+</script>

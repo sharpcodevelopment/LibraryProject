@@ -45,5 +45,11 @@ namespace LibraryProject.Controllers
             var TopCategories = _context.Categories.Where(t => t.ParentCategory == 0).ToList();
             return Json(new { status = true, data = TopCategories });
         }
+
+        public IActionResult SubCategory(int id)
+        {
+            var subCategories = _context.Categories.Where(t => t.ParentCategory == id).ToList();
+            return Json(new { status = true, data = subCategories });
+        }
     }
 }
